@@ -2,7 +2,7 @@
 
 ## Splitting the boot image
 
-To split iniramfs from the kernel, you need an utility such as
+To split iniramfs from the boot image, you need an utility such as
 `abootimg` or `unmkbootimg` or `split_boot`. I recommend using
 `abootimg` since it's available in the Debian and Ubuntu package
 repository. In addition to those programs, you can use `unpackbootimg`
@@ -43,15 +43,28 @@ This will delete `initrd.cpio.gz` and create an uncompressed cpio archive
 `initrd.cpio`.
 Use the cpio utility to extract the initrd.cpio archive.
 
-With GNU cpio
+With GNU cpio and bsdcpio
 ```
 mkdir initrd
 cd initrd
-cpio -ivd < ../initrd.cpio
+# if your shell allows redirection (unrestricted shell)
+# cpio -ivd < ../initrd.cpio
+dd if=../initrd.cpio | cpio -ivd
 ```
+With bsdtar (from `libarchive`)
+```
+mkdir initrd
+cd initrd
+bsdtar -xvf ../initrd.cpio
+```
+Note that bsdtar understands archive compression, so that you can
+directly extract gzip'ed initramfs using bsdtar.
+
 With Busybox cpio
 ```
-busybox cpio -ivd < ../initrd.cpio
+# This is simpler to type if your shell is unrestricted shell.
+# busybox cpio -ivd < ../initrd.cpio
+busybox dd if=../initrd.cpio | busybox cpio -ivd
 ```
 
 The cpio archive will be extracted in the current working directory.
@@ -67,16 +80,31 @@ with no crc. It's possible to use `crc` format, which is the same as
 the default factory to ensure compatibility.
 
 To create the `newc` cpio archive compressed with gzip, use the
-following command in the initramfs working directory.
+following command in the initramfs working directory. GNU cpio, bsdcpio,
+bsdtar, and busybox cpio can be used to achieve this goal. Please use
+`newc` format to make it bootable.
+
+Using GNU cpio
 
 ```
- find . | cpio -ov -H newc | gzip -c > ../initrd.new.cpio.gz
+ find . | cpio -ov -H newc | gzip | dd of=../initrd.new.cpio.gz
 ```
 
-To use the 'crc' cpio format, use the following command
+To use the 'crc' cpio format, use the following command (untested).
 
 ```
-find . | cpio -ov -H crc | gzip -c > ../initrd.new.cpio.gz
+find . | cpio -ov -H crc | gzip | dd of=../initrd.new.cpio.gz
+```
+
+Using bsdcpio (from `libarchive` package)
+
+```
+ find . | cpio -ov --format newc | gzip | dd of=../initrd.new.cpio.gz
+```
+Using bsdtar (from `libarchive`)
+
+```
+ bsdtar -cvf - --format newc . | gzip | dd of=../initrd.new.cpio.gz
 ```
 
 If you are using Busybox cpio instead of GNU cpio, you must specify flag
@@ -84,7 +112,7 @@ If you are using Busybox cpio instead of GNU cpio, you must specify flag
 
 ```
 busybox find . | busybox cpio -ivd -H newc | \
-	busybox gzip -c > ../initrd.new.cpio.gz
+	busybox gzip | busybox dd of=../initrd.new.cpio.gz
 ```
 
 If you don't specify -H flags, the default output for GNU cpio is binary
@@ -114,6 +142,13 @@ Done. Your new boot image file is ready to use. The new boot image file
 is ../boot-new.img
 
 You can create an update.zip package to install the new boot image file.
+
+## Simplify the process using Carliv Image Kitchen
+
+Since there is a simple tool to unpack and repack boot image, including
+those made for MTK devices, it's good to use it. Just go to the [Carliv
+Image Kitchen
+XDA](http://forum.xda-developers.com/android/development/tool-cika-carliv-image-kitchen-android-t3013658) and you are good to go.
 
 Happy hacking and have a good day!
 

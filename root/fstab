@@ -3,12 +3,7 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-/dev/bootimg		/boot					emmc			defaults		defaults
-/dev/recovery		/recovery			emmc			defaults		defaults
 /emmc@android     /system             ext4      ro,noatime                              wait
 /emmc@cache       /cache              ext4      noatime,nosuid,nodev,noauto_da_alloc    wait
 /emmc@usrdata     /data               ext4      noatime,nosuid,nodev,noauto_da_alloc    wait,encryptable=footer
-
-/emmc@fat			/internal_sd		vfat			defaults		defaults
-/dev/block/mmcblk1p1	/external_sd	vfat			defaults		defaults
 
