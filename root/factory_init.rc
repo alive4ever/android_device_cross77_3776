@@ -107,7 +107,7 @@ on post-fs
 
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /system/data
-    chmod 0777 /system/data
+    chmod 0770 /system/data
 
     # Same reason as /data above
     chown system cache /cache
@@ -237,15 +237,15 @@ on post-fs
     chown root diag /sys/module/tpd_debug/parameters/tpd_em_log
     chown root diag /sys/module/tpd_debug/parameters/tpd_em_log_to_fs
 
-    chmod 0777 /dev/pmem_multimedia
-    chmod 0777 /dev/mt6516-isp
-    chmod 0777 /dev/mt6516-IDP
-    chmod 0777 /dev/mt9p012
-    chmod 0777 /dev/mt6516_jpeg
-    chmod 0777 /dev/FM50AF
+    chmod 0770 /dev/pmem_multimedia
+    chmod 0770 /dev/mt6516-isp
+    chmod 0770 /dev/mt6516-IDP
+    chmod 0770 /dev/mt9p012
+    chmod 0770 /dev/mt6516_jpeg
+    chmod 0770 /dev/FM50AF
 
     # RTC
-    mkdir /data/misc/rtc 0777 system system
+    mkdir /data/misc/rtc 0770 system system
 
     # Modem related device nodes
     mkdir /data/nvram/md 0770 root nvram
@@ -319,8 +319,8 @@ on post-fs
     chmod 0666 /dev/MT6575_MFlexVideo
 
     mkdir /data/amit/
-    mkdir /data/misc/sensors 0777 system system
-    mkdir /data/misc/akmd 0777 compass compass
+    mkdir /data/misc/sensors 0770 system system
+    mkdir /data/misc/akmd 0770 compass compass
     chown system /sys/class/input/input4/enable
     chown system /sys/class/input/input4/delay
     chown system /sys/class/input/input4/wake

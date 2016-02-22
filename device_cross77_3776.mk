@@ -42,7 +42,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/root/default.prop:root/default.prop \
 	$(LOCAL_PATH)/root/factory_init.rc:root/factory_init.rc \
 	$(LOCAL_PATH)/root/fstab:root/fstab \
 	$(LOCAL_PATH)/root/init.mt6577.rc:root/init.mt6577.rc \
