@@ -14,5 +14,5 @@ $(call inherit-product, device/cross/cross77_3776/device_cross77_3776.mk)
 PRODUCT_DEVICE := cross77_3776
 PRODUCT_NAME := cm_cross77_3776
 PRODUCT_BRAND := cross
-PRODUCT_MODEL := cross77_3776
+PRODUCT_MODEL := A7S
 PRODUCT_MANUFACTURER := cross
