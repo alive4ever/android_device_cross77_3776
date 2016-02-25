@@ -22,11 +22,11 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # GPS
-PRODUCT_COPY_FILES += \
+#PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/configs/agps_profiles_conf2.xml:system/etc/agps_profiles_conf2.xml \
 
 # Audio	
-PRODUCT_COPY_FILES += \
+#PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/system/etc/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/system/etc/audio_policy.conf:system/etc/audio_policy.conf \
@@ -36,7 +36,7 @@ PRODUCT_COPY_FILES += \
      $(LOCAL_PATH)/configs/thermal.conf:system/etc/.tp/thermal.conf
 
 # Keylayout
-PRODUCT_COPY_FILES += \
+#PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/system/usr/keylayout/mtk-kpd.kl:system/usr/keylayout/mtk-kpd.kl \
 
 PRODUCT_TAGS += dalvik.gc.type-precise
